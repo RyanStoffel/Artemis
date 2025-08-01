@@ -65,19 +65,6 @@ alias pip 'pip3'
 alias serve 'python3 -m http.server 8000'  # Quick local server
 alias json 'python3 -m json.tool'          # Pretty print JSON
 
-# Fish specific functions and abbreviations
-# Better command abbreviations using abbr (expands when you press space)
-abbr --add gst git status
-abbr --add gco git checkout
-abbr --add gcm git commit -m
-abbr --add gca git commit --amend
-abbr --add gcb git checkout -b
-
-# Directory navigation improvements
-abbr --add -- - 'cd -'              # Go back to previous directory
-abbr --add l ls
-abbr --add ll 'ls -la'
-
 # Initialize external tools
 if command -v starship > /dev/null
     starship init fish | source
