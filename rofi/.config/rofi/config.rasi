@@ -1,0 +1,29 @@
+configuration{
+    modi: "drun,run,window";
+    icon-theme: "Papirus-Dark";
+    show-icons: true;
+    terminal: "kitty";
+    drun-display-format: "{name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    display-drun: "Applications";
+    display-run: "Run";
+    display-window: "Windows";
+    sidebar-mode: false;
+    click-to-exit: true;
+    scroll-method: 0;
+    case-sensitive: false;
+    cycle: true;
+    eh: 1;
+    auto-select: false;
+    parse-hosts: false;
+    parse-known-hosts: false;
+    combi-modi: "drun,run";
+    matching: "fuzzy";
+    sort: true;
+    sorting-method: "fzf";
+    max-history-size: 25;
+    fixed-num-lines: true;
+}
+@theme "catppuccin-mocha"

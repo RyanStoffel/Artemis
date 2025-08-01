@@ -1,0 +1,242 @@
+/* Catppuccin Mocha Colors */
+* {
+    base:      #1e1e2e;
+    mantle:    #181825;
+    crust:     #11111b;
+    
+    text:      #cdd6f4;
+    subtext0:  #a6adc8;
+    subtext1:  #bac2de;
+    
+    surface0:  #313244;
+    surface1:  #45475a;
+    surface2:  #585b70;
+    
+    overlay0:  #6c7086;
+    overlay1:  #7f849c;
+    overlay2:  #9399b2;
+    
+    blue:      #89b4fa;
+    lavender:  #b4befe;
+    sapphire:  #74c7ec;
+    sky:       #89dceb;
+    teal:      #94e2d5;
+    green:     #a6e3a1;
+    yellow:    #f9e2af;
+    peach:     #fab387;
+    maroon:    #eba0ac;
+    red:       #f38ba8;
+    mauve:     #cba6f7;
+    pink:      #f5c2e7;
+    flamingo:  #f2cdcd;
+    rosewater: #f5e0dc;
+    
+    transparent: rgba(0,0,0,0);
+    
+    font: "SF Pro Display 16";
+    
+    background-color: @transparent;
+    text-color: @text;
+    
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+}
+
+window {
+    location: center;
+    anchor: center;
+    fullscreen: false;
+    width: 800px;
+    x-offset: 0px;
+    y-offset: 0px;
+    
+    enabled: true;
+    margin: 0px;
+    padding: 0px;
+    border: 2px solid;
+    border-radius: 16px;
+    border-color: @surface0;
+    background-color: rgba(30, 30, 46, 0.95);
+    cursor: "default";
+}
+
+mainbox {
+    enabled: true;
+    spacing: 0px;
+    margin: 0px;
+    padding: 0px;
+    border: 0px solid;
+    border-radius: 0px 0px 0px 0px;
+    border-color: @transparent;
+    background-color: @transparent;
+    children: [ "inputbar", "listview" ];
+}
+
+inputbar {
+    enabled: true;
+    spacing: 12px;
+    margin: 0px;
+    padding: 24px 24px 16px 24px;
+    border: 0px solid;
+    border-radius: 0px;
+    border-color: @transparent;
+    background-color: @transparent;
+    text-color: @text;
+    children: [ "textbox-prompt-colon", "entry" ];
+}
+
+prompt {
+    enabled: false;
+}
+
+textbox-prompt-colon {
+    enabled: true;
+    expand: false;
+    str: "󰍉";
+    border: 0px solid;
+    border-radius: 0px;
+    border-color: @transparent;
+    background-color: @transparent;
+    text-color: @subtext0;
+    padding: 8px 0px 8px 0px;
+    font: "Symbols Nerd Font Mono 20";
+}
+
+entry {
+    enabled: true;
+    expand: true;
+    width: 20em;
+    background-color: @transparent;
+    border: 0px solid;
+    border-radius: 0px;
+    border-color: @transparent;
+    cursor: text;
+    placeholder: "Search applications...";
+    placeholder-color: @overlay0;
+    text-color: @text;
+    padding: 8px 0px 8px 0px;
+}
+
+num-filtered-rows {
+    enabled: false;
+}
+
+textbox-num-sep {
+    enabled: false;
+}
+
+num-rows {
+    enabled: false;
+}
+
+case-indicator {
+    enabled: false;
+}
+
+listview {
+    enabled: true;
+    columns: 1;
+    lines: 8;
+    cycle: true;
+    dynamic: true;
+    scrollbar: false;
+    layout: vertical;
+    reverse: false;
+    fixed-height: true;
+    fixed-columns: true;
+    
+    spacing: 4px;
+    margin: 0px;
+    padding: 8px 24px 24px 24px;
+    border: 0px solid;
+    border-radius: 0px;
+    border-color: @transparent;
+    background-color: @transparent;
+    text-color: @text;
+    cursor: "default";
+}
+
+scrollbar {
+    handle-width: 5px ;
+    handle-color: @overlay0;
+    border-radius: 8px;
+    background-color: @surface0;
+}
+
+element {
+    enabled: true;
+    spacing: 12px;
+    margin: 0px;
+    padding: 8px 12px;
+    border: 0px solid;
+    border-radius: 8px;
+    border-color: @transparent;
+    background-color: @transparent;
+    text-color: @text;
+    cursor: pointer;
+}
+
+element normal.normal {
+    background-color: @transparent;
+    text-color: @text;
+}
+
+element selected.normal {
+    background-color: @surface0;
+    text-color: @text;
+}
+
+element-icon {
+    background-color: @transparent;
+    text-color: inherit;
+    size: 32px;
+    cursor: inherit;
+}
+
+element-text {
+    background-color: @transparent;
+    text-color: inherit;
+    highlight: inherit;
+    cursor: inherit;
+    vertical-align: 0.5;
+    horizontal-align: 0.0;
+}
+
+mode-switcher{
+    enabled: false;
+}
+
+button {
+    padding: 8px;
+    border: 0px solid;
+    border-radius: 8px;
+    border-color: @transparent;
+    background-color: @surface0;
+    text-color: @subtext0;
+    cursor: pointer;
+}
+
+button selected {
+    background-color: @blue;
+    text-color: @base;
+}
+
+message {
+    enabled: true;
+    margin: 0px;
+    padding: 12px;
+    border: 0px solid;
+    border-radius: 0px 0px 0px 0px;
+    border-color: @transparent;
+    background-color: @surface0;
+    text-color: @text;
+}
+
+textbox {
+    background-color: @transparent;
+    text-color: @text;
+    vertical-align: 0.5;
+    horizontal-align: 0.0;
+    highlight: none;
+}
