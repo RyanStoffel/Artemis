@@ -65,6 +65,17 @@
 
   # Packages & Programs.
   programs.firefox.enable = true;
+  programs.chromium = {
+    enable = true;
+    extraOpts = {
+      "default_search_provider.enabled" = true;
+      "default_search_provider.name" = "Kagi";
+      "default_search_provider.search_url" = "https://kagi.com/search?q={searchTerms}";
+      "default_search_provider.keyword" = "kagi.com";
+      "default_search_provider.replace_search_url_in_history" = true;
+      "default_search_provider.id" = 1;
+    };
+  };
   programs.fish.enable = true;
   programs.steam.enable = true;
   programs.steam.gamescopeSession.enable = true;
@@ -116,6 +127,9 @@
         background = "${../../assets/wallpapers/wallpaper1.png}";
         loginBackground = true;
       })
+    chromium
+    impala
+    iwd
   ];
 
   # Font configuration - make JetBrains Mono the system default
