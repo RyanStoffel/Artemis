@@ -60,7 +60,10 @@
       };
       dhcpV4Config = {
         RouteMetric = 1024;
-      };
+      };"custom/nixos": {
+    "format": "<span size='15000' foreground='#89b4fa'>󱄅</span>",
+    "on-click": "kitty --class=fastfetch-terminal -o allow_remote_control=no -o shell_integration=disabled -o scrollback_lines=0 -o mouse_hide_wait=0 -o cursor_blink_interval=0 -e bash -c 'fastfetch; exec 0</dev/null; while true; do sleep 1; done'"
+  }
     };
     networks."25-wireless" = {
       matchConfig.Name = "wl*";
@@ -203,6 +206,8 @@
     hicolor-icon-theme
     adwaita-icon-theme
     btop
+    swayosd
+    swaynotificationcenter
   ];
 
   # Font configuration - make JetBrains Mono the system default

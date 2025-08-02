@@ -18,7 +18,6 @@ alias cd 'z'
 alias g 'git'
 alias gs 'git status'
 alias gaa 'git add --all'
-alias gc 'git commit -m'
 alias gp 'git push'
 alias gpl 'git pull'
 alias gb 'git branch'
@@ -29,8 +28,8 @@ alias gundo 'git reset --soft HEAD~1'
 alias gpush 'git push -u origin (git branch --show-current)'
 
 # Development aliases
-alias dev 'cd ~/Development'
-alias downloads 'cd ~/Downloads'
+alias dev 'cd ~/dev'
+alias downloads 'cd ~/downloads'
 
 # File operations aliases
 alias rm 'rm -i'                   # Ask before removing
@@ -57,13 +56,18 @@ alias home 'cd ~'
 alias root 'cd /'
 alias h 'history'
 alias j 'jobs'
-alias path 'echo $PATH | tr " " "\n"'  # Show PATH entries on separate lines
+alias path 'echo $PATH | tr ":" "\n"'  # Show PATH entries on separate lines (FIXED)
 
 # Development specific aliases (based on your preferences)
 alias py 'python3'
 alias pip 'pip3'
 alias serve 'python3 -m http.server 8000'  # Quick local server
 alias json 'python3 -m json.tool'          # Pretty print JSON
+
+# Custom Git commit function (FIXED)
+function gc --description "Git commit with message"
+    git commit -m "$argv"
+end
 
 # Initialize external tools
 if command -v starship > /dev/null

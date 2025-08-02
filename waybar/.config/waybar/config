@@ -2,26 +2,28 @@
   "position": "top",
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["bluetooth", "network", "pulseaudio", "clock"],
+  "modules-right": ["bluetooth", "network", "pulseaudio", "clock", "custom/nixos"],
   "clock": {
-    "format": "<span foreground='#f5c2e7'>   </span>{:%a %d %I:%M %p}",
+    "format": "<span size='15000' foreground='#f5c2e7'>󰃭 </span>{:%a %d %I:%M %p}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "network": {
-    "format-wifi": "<span size='13000' foreground='#f9e2af'>󰤨  </span>{essid}",
-    "format-ethernet": "<span size='13000' foreground='#f9e2af'>󰤭  </span> Connected",
+    "format-wifi": "<span size='15000' foreground='#f9e2af'>󰤨 </span>{essid}",
+    "format-ethernet": "<span size='15000' foreground='#f9e2af'>󰤭 </span> Connected",
     "format-linked": "{ifname} (No IP) ",
-    "format-disconnected": "<span size='13000' foreground='#f9e2af'>󰤭  </span>Disconnected",
-    "tooltip-format-wifi": "Signal Strength: {signalStrength}%",
+    "format-disconnected": "<span size='15000' foreground='#f9e2af'>󰤭 </span>Disconnected",
+    "tooltip-format-wifi": "󰕒 {bandwidthUpBytes} MB/s 󰇚 {bandwidthDownBytes} MB/s\nSignal: {signalStrength}%",
+    "tooltip-format-ethernet": "󰕒 {bandwidthUpBytes} MB/s 󰇚 {bandwidthDownBytes} MB/s",
+    "interval": 2,
     "on-click": "kitty --class=impala-terminal impala"
   },
   "bluetooth": {
-    "format": "<span size='13000' foreground='#89dceb'>󰂯</span>",
-    "format-disabled": "<span size='13000' foreground='#6c7086'>󰂲</span>",
-    "format-off": "<span size='13000' foreground='#6c7086'>󰂲</span>",
-    "format-on": "<span size='13000' foreground='#89dceb'>󰂯</span>",
-    "format-connected": "<span size='13000' foreground='#89dceb'>󰂱</span> {device_alias}",
-    "format-connected-battery": "<span size='13000' foreground='#89dceb'>󰂱</span> {device_alias} {device_battery_percentage}%",
+    "format": "<span size='15000' foreground='#89dceb'>󰂯</span>",
+    "format-disabled": "<span size='15000' foreground='#6c7086'>󰂲</span>",
+    "format-off": "<span size='15000' foreground='#6c7086'>󰂲</span>",
+    "format-on": "<span size='15000' foreground='#89dceb'>󰂯</span>",
+    "format-connected": "<span size='15000' foreground='#89dceb'>󰂱</span> {device_alias}",
+    "format-connected-battery": "<span size='15000' foreground='#89dceb'>󰂱</span> {device_alias} {device_battery_percentage}%",
     "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
@@ -31,11 +33,15 @@
     "on-click": "blueberry"
   },
   "pulseaudio": {
-      "format": "<span size='13000' foreground='#89b4fa'>󰕾</span>  {volume}%",
-      "format-muted": "<span size='13000' foreground='#6c7086'>󰖁</span>  {volume}%",
+      "format": "<span size='15000' foreground='#89b4fa'>󰕾</span>  {volume}%",
+      "format-muted": "<span size='15000' foreground='#6c7086'>󰖁</span>  {volume}%",
       "format-icons": {
           "default": ["󰕿", "󰖀", "󰕾"]
       },
       "on-click": "pavucontrol"
+  },
+  "custom/nixos": {
+    "format": "<span size='15000' foreground='#89b4fa'>󱄅</span>",
+    "on-click": "kitty --class=fastfetch-terminal -o allow_remote_control=no -o shell_integration=disabled -o scrollback_lines=0 -o mouse_hide_wait=0 -o cursor_blink_interval=0 -e bash -c 'fastfetch; stty -echo -icanon min 0 time 0; exec 0</dev/null; while true; do sleep 1; done'"
   }
 }
