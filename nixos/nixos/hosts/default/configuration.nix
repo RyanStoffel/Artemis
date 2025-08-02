@@ -15,15 +15,82 @@
     powerOnBoot = true;
   };
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Boot optimizations
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      timeout = 1; # Faster boot menu timeout
+    };
+    plymouth = {
+      enable = true;
+      theme = "breeze";
+    };
+    # Optimize boot process
+    initrd.systemd.enable = true;
+    # Preload AMD GPU modules
+    kernelModules = ["amdgpu"];
+    # Enable early KMS for AMD and disable unused serial ports
+    kernelParams = [
+      "amdgpu.dc=1"
+      "8250.nr_uarts=0" # Disable serial ports to save 7+ seconds
+      "udev.log_level=3" # Reduce udev logging overhead
+      "quiet" # Reduce boot message overhead
+    ];
+  };
 
+  # Network optimization - Replace dhcpcd with systemd-networkd
   networking = {
     hostName = "Artemis";
-    # networkmanager.enable = true;  # Comment this out
+    # Disable dhcpcd (the slow culprit)
+    dhcpcd.enable = false;
+    # Use systemd-networkd instead
+    useNetworkd = true;
     wireless.iwd.enable = true;
   };
+
+  # Fast systemd-networkd configuration
+  systemd.network = {
+    enable = true;
+    networks."20-wired" = {
+      matchConfig.Name = "en*";
+      networkConfig = {
+        DHCP = "ipv4";
+        IPv4Forwarding = false;
+      };
+      dhcpV4Config = {
+        RouteMetric = 1024;
+      };
+    };
+    networks."25-wireless" = {
+      matchConfig.Name = "wl*";
+      networkConfig = {
+        DHCP = "ipv4";
+        IPv4Forwarding = false;
+      };
+      dhcpV4Config = {
+        RouteMetric = 1025;
+      };
+    };
+  };
+
+  # Enable systemd-resolved for DNS
+  services.resolved.enable = true;
+
+  # Journal optimization (reduce the 2.2s journal flush time)
+  services.journald.extraConfig = ''
+    SystemMaxUse=100M
+    SystemMaxFileSize=10M
+    ForwardToSyslog=no
+    ForwardToKMsg=no
+    ForwardToConsole=no
+  '';
+
+  # Systemd optimizations
+  systemd.extraConfig = ''
+    DefaultTimeoutStopSec=10s
+    DefaultTimeoutStartSec=10s
+  '';
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
@@ -33,10 +100,10 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  # AMD GPU configuration
   hardware.graphics = {
     enable = true;
   };
-
   services.xserver.videoDrivers = ["amdgpu"];
 
   services.displayManager.sddm = {
@@ -104,7 +171,6 @@
     bat
     fastfetch
     stow
-
     # Applications
     rofi-wayland
     mangohud
@@ -144,7 +210,6 @@
     packages = with pkgs; [
       nerd-fonts.jetbrains-mono
     ];
-
     fontconfig = {
       enable = true;
       defaultFonts = {
@@ -176,7 +241,6 @@
   };
 
   # List services that you want to enable:
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
