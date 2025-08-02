@@ -133,6 +133,10 @@
     chromium
     impala
     iwd
+    papirus-icon-theme
+    hicolor-icon-theme
+    adwaita-icon-theme
+    btop
   ];
 
   # Font configuration - make JetBrains Mono the system default

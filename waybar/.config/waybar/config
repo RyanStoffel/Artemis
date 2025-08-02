@@ -8,11 +8,12 @@
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "network": {
-    "format-wifi": "<span size='13000' foreground='#f5e0dc'>  </span>{essid}",
-    "format-ethernet": "<span size='13000' foreground='#f5e0dc'>󰤭  </span> Disconnected",
+    "format-wifi": "<span size='13000' foreground='#f9e2af'>󰤨  </span>{essid}",
+    "format-ethernet": "<span size='13000' foreground='#f9e2af'>󰤭  </span> Connected",
     "format-linked": "{ifname} (No IP) ",
-    "format-disconnected": "<span size='13000' foreground='#f5e0dc'>  </span>Disconnected",
-    "tooltip-format-wifi": "Signal Strenght: {signalStrength}%"
+    "format-disconnected": "<span size='13000' foreground='#f9e2af'>󰤭  </span>Disconnected",
+    "tooltip-format-wifi": "Signal Strength: {signalStrength}%",
+    "on-click": "kitty --class=impala-terminal impala"
   },
   "bluetooth": {
     "format": "<span size='13000' foreground='#89dceb'>󰂯</span>",
@@ -30,10 +31,10 @@
     "on-click": "blueberry"
   },
   "pulseaudio": {
-      "format": "{icon}  {volume}%",
-      "format-muted": "",
+      "format": "<span size='13000' foreground='#89b4fa'>󰕾</span>  {volume}%",
+      "format-muted": "<span size='13000' foreground='#6c7086'>󰖁</span>  {volume}%",
       "format-icons": {
-          "default": ["", "", " "]
+          "default": ["󰕿", "󰖀", "󰕾"]
       },
       "on-click": "pavucontrol"
   }
