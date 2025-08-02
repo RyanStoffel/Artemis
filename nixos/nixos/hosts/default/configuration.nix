@@ -269,11 +269,6 @@
   # ================================
   services = {
     openssh.enable = true;
-
-    swayosd = {
-      enable = true;
-      display = ":0"; # For Wayland/Hyprland
-    };
   };
 
   # Journal optimization (reduce the 2.2s journal flush time)
