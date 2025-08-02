@@ -19,8 +19,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "Artemis";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "Artemis";
+    # networkmanager.enable = true;  # Comment this out
+    wireless.iwd.enable = true;
+  };
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
