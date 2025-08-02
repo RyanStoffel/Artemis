@@ -2,7 +2,7 @@
   "position": "top",
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["bluetooth", "network", "pulseaudio", "clock", "custom/nixos"],
+  "modules-right": ["bluetooth", "network", "pulseaudio", "custom/notification", "clock", "custom/nixos"],
   "clock": {
     "format": "<span size='15000' foreground='#f5c2e7'>󰃭 </span>{:%a %d %I:%M %p}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
@@ -39,6 +39,26 @@
           "default": ["󰕿", "󰖀", "󰕾"]
       },
       "on-click": "pavucontrol"
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span size='15000' foreground='#a6e3a1'>󰂚</span>",
+      "none": "<span size='15000' foreground='#6c7086'>󰂜</span>",
+      "dnd-notification": "<span size='15000' foreground='#f38ba8'>󰂛</span>",
+      "dnd-none": "<span size='15000' foreground='#6c7086'>󰪑</span>",
+      "inhibited-notification": "<span size='15000' foreground='#f9e2af'>󰂠</span>",
+      "inhibited-none": "<span size='15000' foreground='#6c7086'>󰪑</span>",
+      "dnd-inhibited-notification": "<span size='15000' foreground='#fab387'>󰂠</span>",
+      "dnd-inhibited-none": "<span size='15000' foreground='#6c7086'>󰪑</span>"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
   },
   "custom/nixos": {
     "format": "<span size='15000' foreground='#89b4fa'>󱄅</span>",

@@ -58,7 +58,8 @@ button:hover {
 #bluetooth,
 #mode,
 #scratchpad,
-#custom-nixos {
+#custom-nixos,
+#custom-notification {
   margin-top: 2px;
   margin-bottom: 2px;
   margin-left: 4px;
@@ -85,6 +86,14 @@ button:hover {
 #bluetooth {
   color: @sky;
   border-bottom: 2px solid @sky;
+}
+#custom-notification {
+  color: @green;
+  border-bottom: 2px solid @green;
+}
+#custom-notification:hover {
+  color: @teal;
+  border-bottom: 2px solid @teal;
 }
 #idle_inhibitor {
   margin-right: 12px;
