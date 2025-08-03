@@ -158,6 +158,7 @@
 
     # Shell & Development
     fish.enable = true;
+    bash.blesh.enable = true;
     git = {
       enable = true;
       config = {
@@ -195,6 +196,8 @@
     postman
     vscode
     zed-editor
+    blesh
+    nix-bash-completions
 
     # === Desktop Environment ===
     rofi-wayland

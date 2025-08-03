@@ -1,0 +1,247 @@
+# ~/.blerc - Comprehensive blesh configuration
+# Save this as ~/.blerc to customize your blesh experience
+
+# ======= CORE SYNTAX HIGHLIGHTING =======
+
+# Enable syntax highlighting (main feature)
+bleopt highlight_syntax=1
+
+# Enable variable expansion highlighting
+bleopt highlight_variable=1
+
+# Enable filename completion highlighting
+bleopt highlight_filename=1
+
+# ======= CATPPUCCIN MOCHA COLOR SCHEME =======
+
+# Convert hex colors to 256-color approximations for terminal compatibility
+# Catppuccin Mocha palette implemented for blesh
+
+# Command highlighting - using Catppuccin colors
+ble-face -s command_builtin            fg=151,bold         # Green (#a6e3a1) - built-ins
+ble-face -s command_function           fg=117,bold         # Blue (#89b4fa) - functions  
+ble-face -s command_alias              fg=123,bold         # Teal (#94e2d5) - aliases
+ble-face -s command_keyword            fg=183,bold         # Mauve (#cba6f7) - keywords
+ble-face -s command_file               fg=189              # Text (#cdd6f4) - executable files
+
+# File and directory highlighting
+ble-face -s filename                   fg=189              # Text (#cdd6f4) - regular files
+ble-face -s filename_directory         fg=117,bold         # Blue (#89b4fa) - directories
+ble-face -s filename_executable        fg=151,bold         # Green (#a6e3a1) - executables
+ble-face -s filename_link              fg=219              # Pink (#f5c2e7) - symlinks
+ble-face -s filename_orphan            fg=210              # Red (#f38ba8) - broken symlinks
+ble-face -s filename_missing           fg=210,underline    # Red (#f38ba8) - missing files
+
+# Syntax elements
+ble-face -s syntax_quoted              fg=229              # Yellow (#f9e2af) - quoted strings
+ble-face -s syntax_single_quote        fg=229              # Yellow (#f9e2af) - single quotes
+ble-face -s syntax_double_quote        fg=229              # Yellow (#f9e2af) - double quotes  
+ble-face -s syntax_comment             fg=245              # Overlay 1 (#7f849c) - comments
+ble-face -s syntax_error               bg=210,fg=189       # Red bg (#f38ba8), Text fg (#cdd6f4)
+ble-face -s syntax_history_expansion   fg=216              # Peach (#fab387) - history expansion
+ble-face -s syntax_glob                fg=183              # Mauve (#cba6f7) - glob patterns
+
+# Variables and parameters  
+ble-face -s variable_simple            fg=183              # Mauve (#cba6f7) - variables
+ble-face -s variable_array             fg=183,bold         # Mauve (#cba6f7) - arrays
+ble-face -s variable_special           fg=219,bold         # Pink (#f5c2e7) - special vars
+
+# Completion highlighting
+ble-face -s menu_filter_fixed          fg=151,bold         # Green (#a6e3a1) - fixed completions
+ble-face -s menu_filter_input          fg=229,underline    # Yellow (#f9e2af) - input filter
+ble-face -s auto_complete              fg=245              # Overlay 1 (#7f849c) - auto-completion
+
+# Additional Catppuccin theming
+ble-face -s argument_option            fg=216              # Peach (#fab387) - command options
+ble-face -s region                     bg=237,fg=189       # Surface 1 bg (#45475a), Text fg
+ble-face -s region_target              bg=237,fg=219       # Surface 1 bg, Pink fg
+ble-face -s region_match               bg=59,fg=189        # Surface 2 bg (#585b70), Text fg
+ble-face -s disabled                   fg=108              # Overlay 0 (#6c7086) - disabled text
+ble-face -s overwrite_mode             bg=210,fg=235       # Red bg, Base fg (#1e1e2e)
+
+# ======= AUTO-COMPLETION =======
+
+# Enable auto-completion like fish shell
+bleopt complete_auto_complete=1
+
+# Auto-completion delay (milliseconds)
+bleopt complete_auto_delay=200
+
+# Enable menu completion
+bleopt complete_menu_complete=1
+
+# Show completion menu immediately
+bleopt complete_menu_filter=1
+
+# Maximum number of completion items to show
+bleopt complete_menu_maxlines=15
+
+# Enable fuzzy completion
+bleopt complete_ambiguous=1
+
+# ======= EDITING ENHANCEMENTS =======
+
+# Enable multi-line editing
+bleopt edit_multiline=1
+
+# Enable syntax-aware word movement
+bleopt edit_word_mode=1
+
+# Smart indentation
+bleopt indent_offset=2
+
+# Enable auto-closing of brackets and quotes
+bleopt complete_auto_complete_quotes=1
+
+# ======= HISTORY FEATURES =======
+
+# Enhanced history search
+bleopt history_search_type=substr
+
+# Share history between sessions
+bleopt history_share=1
+
+# Limit history search
+bleopt history_limit_length=10000
+
+# ======= KEYBINDINGS =======
+
+# Use Emacs-style keybindings (default)
+# For Vi mode, uncomment: set -o vi
+
+# Custom keybindings
+ble-bind -f 'C-l' 'clear-screen'                    # Ctrl+L to clear
+ble-bind -f 'C-f' 'complete'                        # Ctrl+F to complete
+ble-bind -f 'M-.' 'insert-last-argument'            # Alt+. for last arg
+ble-bind -f 'M-u' 'updir'                           # Alt+U to go up
+ble-bind -f 'M-h' 'cd ~'                            # Alt+H to go home
+
+# Developer-friendly bindings
+ble-bind -f 'C-x C-e' 'edit-and-execute-command'    # Edit command in editor
+
+# ======= ABBREVIATIONS (Like aliases but smarter) =======
+
+# Git abbreviations
+ble-sabbrev g='git'
+ble-sabbrev gc='git commit'
+ble-sabbrev gco='git checkout'
+ble-sabbrev gst='git status'
+ble-sabbrev gd='git diff'
+ble-sabbrev gl='git log --oneline --graph'
+ble-sabbrev gp='git push'
+ble-sabbrev gpl='git pull'
+
+# Development shortcuts
+ble-sabbrev n='nvim'
+ble-sabbrev py='python3'
+ble-sabbrev js='node'
+ble-sabbrev ts='npx ts-node'
+
+# File operations
+ble-sabbrev l='eza -lh --group-directories-first --icons=auto'
+ble-sabbrev la='eza -lha --group-directories-first --icons=auto'
+ble-sabbrev lt='eza --tree --level=2 --long --icons --git'
+
+# Salesforce development (for your internship!)
+ble-sabbrev sf-login='sf org login web'
+ble-sabbrev sf-push='sf project deploy start'
+ble-sabbrev sf-pull='sf project retrieve start'
+ble-sabbrev sfdx-test='sfdx force:apex:test:run'
+ble-sabbrev sfdx-open='sfdx force:org:open'
+
+# Quick navigation
+ble-sabbrev ..='cd ..'
+ble-sabbrev ...='cd ../..'
+ble-sabbrev ....='cd ../../..'
+
+# ======= PERFORMANCE OPTIMIZATIONS =======
+
+# Optimize for performance
+bleopt exec_restore_pipefail=1
+bleopt canvas_winch_action=redraw-prev
+
+# Reduce delays for better responsiveness
+bleopt keymap_vi_mode_update_prompt=1
+bleopt prompt_ps1_final='$'
+
+# Canvas optimization
+bleopt canvas_winch_action=redraw
+
+# ======= INTEGRATION WITH OTHER TOOLS =======
+
+# FZF integration
+bleopt complete_menu_style=align-nowrap
+
+# Starship prompt integration
+bleopt prompt_rps1_transient=''
+
+# Git integration
+bleopt complete_source_git=1
+
+# Bash completion integration
+bleopt complete_source_bash_completion=1
+
+# ======= CONDITIONAL SETTINGS =======
+
+# Enable 256-color features if supported
+if [[ $TERM == *"256color"* ]]; then
+    bleopt highlight_timeout=50
+    bleopt canvas_winch_action=redraw
+fi
+
+# Adjust for terminal width
+if [[ $(tput cols) -gt 120 ]]; then
+    # Wide terminal - show more completions
+    bleopt complete_menu_maxlines=20
+else
+    # Narrow terminal - be conservative
+    bleopt complete_menu_maxlines=10
+fi
+
+# ======= ADVANCED FEATURES =======
+
+# Enable bracket matching
+bleopt edit_mark_type=underline
+
+# Smart quote handling
+bleopt complete_auto_complete_quotes=1
+
+# Spell correction suggestions
+bleopt complete_spelling_correction=1
+
+# Enable right prompt (optional)
+# bleopt prompt_rps1='$(date +%H:%M:%S)'
+
+# ======= DEVELOPER-SPECIFIC SETTINGS =======
+
+# Language-specific abbreviations
+if command -v node &> /dev/null; then
+    ble-sabbrev npm-i='npm install'
+    ble-sabbrev npm-d='npm run dev'
+    ble-sabbrev npm-b='npm run build'
+    ble-sabbrev npm-t='npm test'
+fi
+
+if command -v python3 &> /dev/null; then
+    ble-sabbrev pip-i='pip install'
+    ble-sabbrev pip-u='pip install --upgrade'
+    ble-sabbrev venv='python3 -m venv'
+fi
+
+if command -v java &> /dev/null; then
+    ble-sabbrev mvn-c='mvn clean compile'
+    ble-sabbrev mvn-t='mvn test'
+    ble-sabbrev mvn-p='mvn package'
+fi
+
+# NixOS-specific abbreviations
+ble-sabbrev nrs='sudo nixos-rebuild switch'
+ble-sabbrev nrt='sudo nixos-rebuild test'
+ble-sabbrev nrb='sudo nixos-rebuild boot'
+
+# ======= STARTUP MESSAGE (Optional) =======
+
+# Uncomment to show blesh info on startup
+# if [[ $BLE_VERSION ]]; then
+#     echo "🎨 Blesh $BLE_VERSION loaded with syntax highlighting"
+# fi

@@ -14,3 +14,7 @@ if command -v fzf &> /dev/null; then
     source /usr/share/fzf/key-bindings.bash
   fi
 fi
+
+if [[ $- == *i* ]] && command -v blesh-share &> /dev/null; then
+    source "$(blesh-share)/ble.sh"
+fi
