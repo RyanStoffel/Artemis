@@ -209,11 +209,15 @@
     nwg-look
     nautilus
     swayosd
-    swaynotificationcenter
     spotify
     slack
     _1password-gui-beta
     obsidian
+    obs-studio
+    vlc
+    hyprshot
+    grim
+    slurp
 
     # === Themes & Appearance ===
     bibata-cursors
