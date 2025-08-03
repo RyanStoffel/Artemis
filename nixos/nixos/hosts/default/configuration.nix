@@ -190,6 +190,11 @@
     bat
     fastfetch
     stow
+    lazygit
+    alacritty
+    postman
+    vscode
+    zed-editor
 
     # === Desktop Environment ===
     rofi-wayland
@@ -202,6 +207,11 @@
     nautilus
     swayosd
     swaynotificationcenter
+    spotify
+    slack
+    _1password-gui-beta
+    obsidian
+    walker
 
     # === Themes & Appearance ===
     bibata-cursors
