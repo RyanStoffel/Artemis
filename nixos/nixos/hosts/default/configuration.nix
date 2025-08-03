@@ -229,7 +229,7 @@
       flavor = "mocha";
       font = "JetBrainsMono Nerd Font";
       fontSize = "11";
-      background = "${../../assets/wallpapers/wallpaper1.png}";
+      background = "${../../assets/wallpapers/catppuccin-mocha.png}";
       loginBackground = true;
     })
 
