@@ -123,7 +123,7 @@
   users.users.rstoffel = {
     isNormalUser = true;
     extraGroups = ["networkmanager" "wheel" "audio"];
-    shell = pkgs.fish;
+    shell = pkgs.bash;
     packages = with pkgs; [
       tree
     ];
