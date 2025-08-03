@@ -123,7 +123,7 @@
   users.users.rstoffel = {
     isNormalUser = true;
     extraGroups = ["networkmanager" "wheel" "audio"];
-    shell = pkgs.bash;
+    shell = pkgs.zsh;
     packages = with pkgs; [
       tree
     ];
@@ -157,6 +157,7 @@
     };
 
     # Shell & Development
+    zsh.enable = true;
     fish.enable = true;
     bash.blesh.enable = true;
     git = {
