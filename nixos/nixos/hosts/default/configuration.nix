@@ -211,7 +211,6 @@
     slack
     _1password-gui-beta
     obsidian
-    walker
 
     # === Themes & Appearance ===
     bibata-cursors
@@ -240,6 +239,9 @@
     impala
     iwd
     btop
+    wl-clipboard
+    libqalculate
+    fd
   ];
 
   # ================================
