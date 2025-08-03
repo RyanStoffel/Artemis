@@ -157,9 +157,13 @@
     };
 
     # Shell & Development
-    zsh.enable = true;
-    fish.enable = true;
-    bash.blesh.enable = true;
+    zsh = {
+      enable = true;
+      enableCompletions = true;
+      autosuggestions.enable = true;
+      syntaxHighlighting.enable = true;
+    };
+
     git = {
       enable = true;
       config = {
