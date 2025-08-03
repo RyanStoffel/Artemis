@@ -156,13 +156,7 @@
       };
     };
 
-    # Shell & Development
-    zsh = {
-      enable = true;
-      enableCompletion = true;
-      autosuggestions.enable = true;
-      syntaxHighlighting.enable = true;
-    };
+    zsh.enable = true;
 
     git = {
       enable = true;
@@ -203,6 +197,8 @@
     zed-editor
     blesh
     nix-bash-completions
+    zsh-powerlevel10k
+    meslo-lgs-nf
 
     # === Desktop Environment ===
     rofi-wayland
