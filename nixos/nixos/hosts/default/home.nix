@@ -35,7 +35,7 @@
       border-size = 2; # Same as Hyprland border size
 
       # Font and text
-      font = "Ubuntu Nerd Font 14";
+      font = "JetBrainsMono Nerd Font 14";
 
       # Behavior
       default-timeout = 10000; # 10 seconds
