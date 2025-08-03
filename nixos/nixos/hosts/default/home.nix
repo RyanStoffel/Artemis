@@ -27,12 +27,12 @@
       margin = "10";
       padding = "15";
 
-      # Appearance settings
-      background-color = "#1e1e2e";
-      text-color = "#cdd6f4";
-      border-color = "#313244";
-      border-radius = 12;
-      border-size = 1;
+      # Appearance settings to match Hyprland Catppuccin Mocha
+      background-color = "#1e1e2e"; # base
+      text-color = "#cdd6f4"; # text
+      border-color = "#cba6f7"; # mauve (matching your active border)
+      border-radius = 0; # Sharp corners like you requested
+      border-size = 2; # Same as Hyprland border size
 
       # Font and text
       font = "Ubuntu Nerd Font 14";
@@ -43,24 +43,26 @@
       max-visible = 5;
 
       # Progress bar styling
-      progress-color = "#89b4fa";
+      progress-color = "#cba6f7"; # mauve to match border
 
       # Group notifications by app
       group-by = "app-name";
     };
 
-    # Extra configuration
+    # Extra configuration with Catppuccin Mocha colors
     extraConfig = ''
       [urgency=low]
       background-color=#1e1e2e
       text-color=#a6adc8
       border-color=#45475a
+      border-size=2
       default-timeout=5000
 
       [urgency=normal]
       background-color=#1e1e2e
       text-color=#cdd6f4
-      border-color=#313244
+      border-color=#cba6f7
+      border-size=2
       default-timeout=10000
 
       [urgency=critical]
@@ -74,11 +76,13 @@
       background-color=#1e1e2e
       text-color=#a6e3a1
       border-color=#a6e3a1
+      border-size=2
 
       [summary~=".*[Bb]attery.*"]
       background-color=#1e1e2e
       text-color=#f9e2af
       border-color=#f9e2af
+      border-size=2
     '';
   };
 
