@@ -9,6 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/config/hyprland-configuration.nix
+    ../../modules/config/jovian-configuration.nix
     inputs.home-manager.nixosModules.default
   ];
 
@@ -37,6 +38,8 @@
     kernelModules = ["amdgpu"]; # Preload AMD GPU modules
     kernelParams = [
       "amdgpu.dc=1"
+      "amdgpu.gpu_recovery=1" # Better GPU recovery for gaming
+      "amdgpu.runpm=0" # Disable runtime power management for stability
       "8250.nr_uarts=0" # Disable serial ports to save 7+ seconds
       "udev.log_level=3" # Reduce udev logging overhead
       "quiet" # Reduce boot message overhead
@@ -122,7 +125,13 @@
   # ================================
   users.users.rstoffel = {
     isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel" "audio"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+      "gamemode" # Add gamemode group for Jovian
+      "input" # Add input group for controllers
+    ];
     shell = pkgs.zsh;
     packages = with pkgs; [
       tree
@@ -239,6 +248,15 @@
     protonup
     prismlauncher
 
+    # === Additional Gaming Tools for Jovian ===
+    lutris
+    bottles
+    heroic
+    antimicrox # Controller mapping
+    jstest-gtk # Controller testing
+    goverlay # MangoHud GUI
+    radeontop # AMD GPU monitoring
+
     # === System Utilities ===
     libnotify
     pipewire
@@ -250,6 +268,18 @@
     wl-clipboard
     libqalculate
     fd
+  ];
+
+  # ================================
+  # GAMING OPTIMIZATIONS
+  # ================================
+
+  # Gaming-focused performance
+  powerManagement.cpuFreqGovernor = "performance";
+
+  # UDEV rules for controllers
+  services.udev.packages = with pkgs; [
+    game-devices-udev-rules
   ];
 
   # ================================
