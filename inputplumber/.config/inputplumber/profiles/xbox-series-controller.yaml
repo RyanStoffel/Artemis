@@ -1,0 +1,75 @@
+version: 1
+kind: DeviceProfile
+name: Xbox Series Controller Gaming Mode
+description: Xbox controller profile that launches gaming mode on Xbox button press
+target_devices:
+  - name: "Microsoft Xbox Series S|X Controller"
+    vendor_id: 0x045e
+    product_id: 0x0b12
+
+mapping:
+  # Xbox button (Guide/Home button) launches gaming mode
+  - source_event:
+      gamepad:
+        button: Guide
+    target_events:
+      - keyboard:
+          pressed: [LeftSuper, LeftCtrl, G]  # Super+Ctrl+G (your gaming mode hotkey)
+
+  # All other buttons pass through normally
+  - source_event:
+      gamepad:
+        button: South
+    target_events:
+      - gamepad:
+          button: South
+  
+  - source_event:
+      gamepad:
+        button: East  
+    target_events:
+      - gamepad:
+          button: East
+
+  - source_event:
+      gamepad:
+        button: West
+    target_events:
+      - gamepad:
+          button: West
+
+  - source_event:
+      gamepad:
+        button: North
+    target_events:
+      - gamepad:
+          button: North
+
+  # Map triggers and sticks normally
+  - source_event:
+      gamepad:
+        axis: LeftStick
+    target_events:
+      - gamepad:
+          axis: LeftStick
+
+  - source_event:
+      gamepad:
+        axis: RightStick  
+    target_events:
+      - gamepad:
+          axis: RightStick
+
+  - source_event:
+      gamepad:
+        trigger: LeftTrigger
+    target_events:
+      - gamepad:
+          trigger: LeftTrigger
+
+  - source_event:
+      gamepad:
+        trigger: RightTrigger
+    target_events:
+      - gamepad:
+          trigger: RightTrigger

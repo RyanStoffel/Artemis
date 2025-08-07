@@ -12,12 +12,10 @@
     ../../modules/config/jovian-configuration.nix
     inputs.home-manager.nixosModules.default
   ];
-
   # ================================
   # SYSTEM INFORMATION
   # ================================
   system.stateVersion = "25.05";
-
   # ================================
   # BOOT CONFIGURATION
   # ================================
@@ -27,12 +25,10 @@
       efi.canTouchEfiVariables = true;
       timeout = 1; # Faster boot menu timeout
     };
-
     plymouth = {
       enable = true;
       theme = "breeze";
     };
-
     # Boot optimizations
     initrd.systemd.enable = true;
     kernelModules = ["amdgpu"]; # Preload AMD GPU modules
@@ -43,50 +39,55 @@
       "8250.nr_uarts=0" # Disable serial ports to save 7+ seconds
       "udev.log_level=3" # Reduce udev logging overhead
       "quiet" # Reduce boot message overhead
+      "usbcore.autosuspend=-1"
     ];
   };
-
   # ================================
   # LOCALIZATION & TIME
   # ================================
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
-
   # ================================
-  # NETWORKING
+  # NETWORKING (Updated for Jovian compatibility)
   # ================================
   networking = {
     hostName = "Artemis";
-    dhcpcd.enable = false; # Disable slow dhcpcd
-    useNetworkd = true; # Use fast systemd-networkd
-    wireless.iwd.enable = true;
+    # Enable NetworkManager for Jovian Steam OS compatibility
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd"; # Keep using iwd as the WiFi backend for performance
+    };
+
+    # Disable the old systemd-networkd setup
+    dhcpcd.enable = false;
+    useNetworkd = false; # Changed from true to false
+    wireless.iwd.enable = true; # Keep iwd for WiFi
   };
 
-  # Fast systemd-networkd configuration
-  systemd.network = {
-    enable = true;
-    networks = {
-      "20-wired" = {
-        matchConfig.Name = "en*";
-        networkConfig = {
-          DHCP = "ipv4";
-          IPv4Forwarding = false;
-        };
-        dhcpV4Config.RouteMetric = 1024;
-      };
-      "25-wireless" = {
-        matchConfig.Name = "wl*";
-        networkConfig = {
-          DHCP = "ipv4";
-          IPv4Forwarding = false;
-        };
-        dhcpV4Config.RouteMetric = 1025;
-      };
-    };
-  };
+  # Disable systemd.network since we're using NetworkManager now
+  # systemd.network = {
+  #   enable = true;
+  #   networks = {
+  #     "20-wired" = {
+  #       matchConfig.Name = "en*";
+  #       networkConfig = {
+  #         DHCP = "ipv4";
+  #         IPv4Forwarding = false;
+  #       };
+  #       dhcpV4Config.RouteMetric = 1024;
+  #     };
+  #     "25-wireless" = {
+  #       matchConfig.Name = "wl*";
+  #       networkConfig = {
+  #         DHCP = "ipv4";
+  #         IPv4Forwarding = false;
+  #       };
+  #       dhcpV4Config.RouteMetric = 1025;
+  #     };
+  #   };
+  # };
 
   services.resolved.enable = true;
-
   # ================================
   # HARDWARE CONFIGURATION
   # ================================
@@ -97,11 +98,18 @@
     };
     graphics.enable = true;
   };
-
   # ================================
   # GRAPHICS & DISPLAY
   # ================================
   services.xserver.videoDrivers = ["amdgpu"];
+  services.displayManager.sessionPackages = [
+    pkgs.gamescope-session
+  ];
+
+  services.udev.extraRules = ''
+    # Xbox controller wake rule
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0b12", ATTR{power/wakeup}="enabled"
+  '';
 
   services.displayManager.sddm = {
     enable = true;
@@ -109,7 +117,6 @@
     theme = "catppuccin-mocha";
     package = pkgs.kdePackages.sddm;
   };
-
   # ================================
   # AUDIO
   # ================================
@@ -119,7 +126,6 @@
     jack.enable = true;
     wireplumber.enable = true;
   };
-
   # ================================
   # USER CONFIGURATION
   # ================================
@@ -137,7 +143,6 @@
       tree
     ];
   };
-
   # ================================
   # NIX CONFIGURATION
   # ================================
@@ -146,7 +151,6 @@
     allowUnfree = true;
     allowBroken = true;
   };
-
   # ================================
   # PROGRAMS & APPLICATIONS
   # ================================
@@ -164,9 +168,7 @@
         "default_search_provider.id" = 1;
       };
     };
-
     zsh.enable = true;
-
     git = {
       enable = true;
       config = {
@@ -176,7 +178,6 @@
         pull.rebase = true;
       };
     };
-
     # Gaming
     steam = {
       enable = true;
@@ -184,7 +185,6 @@
     };
     gamemode.enable = true;
   };
-
   # ================================
   # SYSTEM PACKAGES
   # ================================
@@ -208,7 +208,6 @@
     nix-bash-completions
     zsh-powerlevel10k
     meslo-lgs-nf
-
     # === Desktop Environment ===
     rofi-wayland
     networkmanagerapplet
@@ -228,7 +227,6 @@
     hyprshot
     grim
     slurp
-
     # === Themes & Appearance ===
     bibata-cursors
     magnetic-catppuccin-gtk
@@ -242,12 +240,10 @@
       background = "${../../assets/wallpapers/catppuccin-mocha.png}";
       loginBackground = true;
     })
-
     # === Gaming ===
     mangohud
     protonup
     prismlauncher
-
     # === Additional Gaming Tools for Jovian ===
     lutris
     bottles
@@ -256,7 +252,9 @@
     jstest-gtk # Controller testing
     goverlay # MangoHud GUI
     radeontop # AMD GPU monitoring
-
+    # Add these to your systemPackages:
+    usbutils # Provides lsusb
+    evtest # For testing input events
     # === System Utilities ===
     libnotify
     pipewire
@@ -269,19 +267,15 @@
     libqalculate
     fd
   ];
-
   # ================================
   # GAMING OPTIMIZATIONS
   # ================================
-
   # Gaming-focused performance
   powerManagement.cpuFreqGovernor = "performance";
-
   # UDEV rules for controllers
   services.udev.packages = with pkgs; [
     game-devices-udev-rules
   ];
-
   # ================================
   # FONTS
   # ================================
@@ -298,7 +292,6 @@
       };
     };
   };
-
   # ================================
   # ENVIRONMENT VARIABLES
   # ================================
@@ -309,18 +302,15 @@
     MOZ_ENABLE_WAYLAND = "1";
     PULSE_RUNTIME_PATH = "/run/user/1000/pulse";
   };
-
   environment.sessionVariables = {
     STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/rstoffel/.steam/root/compatibilitytools.d";
   };
-
   # ================================
   # SYSTEM SERVICES & OPTIMIZATION
   # ================================
   services = {
     openssh.enable = true;
   };
-
   # Journal optimization (reduce the 2.2s journal flush time)
   services.journald.extraConfig = ''
     SystemMaxUse=100M
@@ -329,13 +319,11 @@
     ForwardToKMsg=no
     ForwardToConsole=no
   '';
-
   # Systemd optimizations
-  systemd.extraConfig = ''
-    DefaultTimeoutStopSec=10s
-    DefaultTimeoutStartSec=10s
-  '';
-
+  systemd.settings.Manager = {
+    DefaultTimeoutStopSec = "10s";
+    DefaultTimeoutStartSec = "10s";
+  };
   # ================================
   # HOME MANAGER
   # ================================

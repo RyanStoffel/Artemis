@@ -1,39 +1,25 @@
-# modules/config/jovian-configuration.nix - Clean version with no duplicates
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   # ================================
   # JOVIAN NIXOS CONFIGURATION
   # ================================
   jovian = {
-    # Enable Steam Deck experience
+    # Enable Steam gaming experience
     steam = {
       enable = true;
-      autoStart = false; # Don't auto-start on boot, we'll choose manually
+      autoStart = false; # Don't auto-start on boot
       user = "rstoffel";
-      desktopSession = "gamescope-wayland"; # Use Gamescope for gaming
     };
 
-    # Hardware support for controllers
-    hardware = {
-      # Enable if you have a Steam Deck controller or similar
-      steamdeck.enable = false; # Set to true if using Steam Deck hardware
-
-      # Xbox/PlayStation controller support
-      xpadneo.enable = true; # Better Xbox controller support
-      xone.enable = true; # Xbox wireless adapter support
-    };
+    # Decky Loader for Steam Deck plugins (optional)
+    decky-loader.enable = false; # Disable for now
   };
 
   # ================================
-  # GAMESCOPE CONFIGURATION
-  # ================================
-
-  programs.gamescope = {
-    enable = true;
-    capSysNice = true;
-  };
-
-  # ================================
-  # ALL PACKAGES IN ONE PLACE (FIXED)
+  # GAMING PACKAGES AND SCRIPTS (NO GAMESCOPE CONFIG)
   # ================================
 
   environment.systemPackages = with pkgs; [
@@ -48,7 +34,6 @@
       export DISPLAY=:0
       export WAYLAND_DISPLAY=wayland-0
       export WLR_NO_HARDWARE_CURSORS=1
-      export ENABLE_VKBASALT=1
 
       # Kill existing Steam processes
       pkill -f steam || true
@@ -135,9 +120,8 @@
     bottles
     heroic
 
-    # Gaming utilities
+    # Gaming utilities (gamescope will be provided by NixOS built-in config)
     gamemode
-    gamescope
 
     # Controller tools
     antimicrox # Controller mapping
@@ -153,33 +137,14 @@
   ];
 
   # ================================
-  # SERVICES & SYSTEMD CONFIGURATION
-  # ================================
-
-  # Gaming mode service (manual start)
-  systemd.user.services.gaming-mode = {
-    description = "Gaming Mode (Jovian) - Single Monitor";
-    environment = {
-      DISPLAY = ":0";
-      WAYLAND_DISPLAY = "wayland-0";
-      WLR_NO_HARDWARE_CURSORS = "1";
-    };
-    serviceConfig = {
-      Type = "exec";
-      ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.gamescope}/bin/gamescope --output-width 3440 --output-height 1440 --nested-width 1920 --nested-height 1080 --borderless --rt --expose-wayland -- ${pkgs.steam}/bin/steam -gamepadui'";
-      Restart = "no";
-      KillMode = "mixed";
-    };
-    wantedBy = []; # Don't auto-start
-  };
-
-  # ================================
-  # UDEV RULES AND PERMISSIONS
+  # UDEV RULES FOR CONTROLLERS
   # ================================
   services.udev.packages = with pkgs; [
     game-devices-udev-rules
   ];
 
-  # Add user to input group for controllers
-  users.users.rstoffel.extraGroups = ["input"];
+  # ================================
+  # USER GROUPS
+  # ================================
+  users.users.rstoffel.extraGroups = ["input" "gamemode"];
 }
